@@ -1,0 +1,123 @@
+#include <iostream>
+#include <string>
+using namespace std;
+
+class Product {
+public:
+    int id, quantity;
+    string name;
+    double price;
+    void display() {
+        cout <<" Id: "<<id << ", " <<"Name: "<< name << ", "
+             <<"Price: "<< price << ", " <<"Quantity: "<< quantity << endl;
+    }
+};
+int main() {
+    Product p[40];
+    int count = 0, choice;
+    double revenue = 0;
+    do {
+        cout << " Inventory Tracker "<<endl;
+        cout << "\n1. Add Product";
+        cout << "\n2. Restock Product";
+        cout << "\n3. Sell Product";
+        cout << "\n4. Low-Stock Products";
+        cout << "\n5. Total Revenue";
+        cout << "\n6. Display All";
+        cout << "\n7. Exit";
+        cout << "\nEnter choice: "; cin >> choice;
+
+        switch (choice) {
+
+        case 1: {
+            int id;
+            cout << "Enter ID: ";cin >> id;
+            bool found = false;
+            for (int i = 0; i < count; i++) {
+                if (p[i].id == id)
+                    found = true;
+            }
+            if (found) {
+                cout << "Product ID already exists\n";
+            }
+            else if (count == 40) {
+                cout << "Inventory is full\n";
+            }
+            else {
+                p[count].id = id;
+                cout << "Enter Name: "; cin >> p[count].name;
+                cout << "Enter Price: "; cin >> p[count].price;
+                cout << "Enter Quantity: "; cin >> p[count].quantity;
+                count++;
+                cout << "Product added\n";
+            }
+            break;
+        }
+        case 2: {
+            int id, amount;
+            cout << "Enter ID: ";
+            cin >> id;
+            int i;
+            for (i = 0; i < count; i++)
+                if (p[i].id == id)
+                    break;
+            if (i == count)
+                cout << "Product not found\n";
+            else {
+                cout << "Enter quantity: "; cin >> amount;
+                p[i].quantity += amount;
+                cout << "Restocked\n";
+            }
+            break;
+        }
+        case 3: {
+            int id, amount;
+            cout << "Enter ID: "; cin >> id;
+
+            int i;
+            for (i = 0; i < count; i++)
+                if (p[i].id == id)
+                    break;
+            if (i == count)
+                cout << "Product not found\n";
+            else {
+                cout << "Enter quantity: "; cin >> amount;
+                if (amount > p[i].quantity)
+                    cout << "Not enough stock\n";
+                else {
+                    p[i].quantity -= amount;
+                    revenue += p[i].price * amount;
+                    cout << "Sale successful\n";
+                }
+            }
+            break;
+        }
+        case 4: {
+            bool found = false;
+
+            for (int i = 0; i < count; i++) {
+                if (p[i].quantity < 20) {
+                    p[i].display();
+                    found = true;
+                }
+            }
+            if (!found)
+                cout << "No low-stock products\n";
+            break;
+        }
+        case 5:
+            cout << "Total Revenue: " << revenue << endl;
+            break;
+        case 6:
+            for (int i = 0; i < count; i++)
+                p[i].display();
+            break;
+        case 7:
+            cout << "Exiting...\n";
+            break;
+        default:
+            cout << "Invalid choice\n";
+        }
+    } while (choice != 7);
+    return 0;
+}
