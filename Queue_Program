@@ -1,0 +1,64 @@
+#include <iostream>
+#include <queue>
+#include <string>
+using namespace std;
+
+int main(){
+    queue<string> canteenQueue;
+    int choice;
+    string name;
+    while (true){
+        cout<<"1. Add students \n";
+        cout<<"2. serve first student \n";
+        cout<<"3. display student wainting \n";
+        cout<<"4. Exit \n";
+        cout<<"Enter Choice: \n";
+        cin>>choice;
+        cin.ignore();
+
+        switch(choice){
+            case 1:
+                cout<<"Enter student name: ";
+                getline(cin,name);
+                canteenQueue.push(name);
+                cout<<name<<" added to the queue"<<endl;
+                break;
+
+            case 2:
+                if(canteenQueue.empty())
+                    {
+                    cout<<"Queue is empty! No students to serve."<<endl;
+                    }
+                else
+                    {
+                    cout<<"Serving: "<<canteenQueue.front()<< endl;
+                    canteenQueue.pop();
+                    }
+                break;
+
+            case 3:
+                if(canteenQueue.empty())
+                    {
+                    cout<<"No students are waiting. Queue is empty. \n"<<endl;
+                    }
+                else{
+                    cout<<"Students waiting: ";
+                    queue<string>temp=canteenQueue;
+                    while(!temp.empty())
+                    {
+                        cout<<temp.front()<< " ";
+                        temp.pop();
+                    }
+                    cout<<endl;
+                    }
+                break;
+
+            case 4:
+                cout<<"Exiting..."<<endl;
+                return 0;
+                default:
+                    cout << "Invalid choice! Try again."<<endl;
+            }
+        }
+    }
+
