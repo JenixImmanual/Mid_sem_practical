@@ -1,0 +1,23 @@
+#include <iostream>
+#include <string>
+using namespace std;
+
+class CanteenItem {
+    string itemName;
+    float price;
+public:
+    CanteenItem(string name, float p) {
+        itemName = name;
+        price = p;
+    }
+    void display() {
+        cout << "Item: " << itemName << ", Price: Rs. " << price << endl;
+    }
+};
+int main() {
+    CanteenItem item1("Veg Puff", 25.0);
+    CanteenItem item2("Cold Coffee", 40.0);
+    item1.display();
+    item2.display();
+    return 0;
+}
